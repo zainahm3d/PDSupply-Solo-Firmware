@@ -4,6 +4,7 @@
         "ble_cus.h": "c",
         "nrf_ble_qwr.h": "c",
         "boards.h": "c",
-        "nrf_sdh.h": "c"
+        "nrf_sdh.h": "c",
+        "sdk_common.h": "c"
     }
 }

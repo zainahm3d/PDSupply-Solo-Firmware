@@ -52,7 +52,7 @@ static void on_write(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
 
   // Custom Value Characteristic Written to.
   if (p_evt_write->handle == p_cus->custom_value_handles.value_handle) {
-    nrf_gpio_pin_toggle(LED_4);
+    nrf_gpio_pin_toggle(LED_2);
 
     NRF_LOG_INFO("Length: %d\n", p_evt_write->len);
     // NRF_LOG_INFO("0x%x\n", *p_evt_write->data);
@@ -222,6 +222,9 @@ uint32_t ble_cus_init(ble_cus_t *p_cus, const ble_cus_init_t *p_cus_init) {
 }
 
 uint32_t ble_cus_custom_value_update(ble_cus_t *p_cus, uint8_t *custom_value) {
+
+  nrf_gpio_pin_toggle(LED_4);
+
   NRF_LOG_INFO("In ble_cus_custom_value_update. \r\n");
   if (p_cus == NULL) {
     return NRF_ERROR_NULL;

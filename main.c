@@ -93,8 +93,8 @@ typedef __uint32_t uint32_t;
 #define APP_BLE_OBSERVER_PRIO 3 /**< Application's BLE observer priority. You shouldn't need to modify this value. */
 #define APP_BLE_CONN_CFG_TAG 1  /**< A tag identifying the SoftDevice BLE configuration. */
 
-#define MIN_CONN_INTERVAL MSEC_TO_UNITS(50, UNIT_1_25_MS)  /**< Minimum acceptable connection interval (0.1 seconds). */
-#define MAX_CONN_INTERVAL MSEC_TO_UNITS(200, UNIT_1_25_MS) /**< Maximum acceptable connection interval (0.2 second). */
+#define MIN_CONN_INTERVAL MSEC_TO_UNITS(10, UNIT_1_25_MS)  /**< Minimum acceptable connection interval (0.1 seconds). */
+#define MAX_CONN_INTERVAL MSEC_TO_UNITS(100, UNIT_1_25_MS) /**< Maximum acceptable connection interval (0.2 second). */
 #define SLAVE_LATENCY 0                                    /**< Slave latency. */
 #define CONN_SUP_TIMEOUT MSEC_TO_UNITS(4000, UNIT_10_MS)   /**< Connection supervisory timeout (4 seconds). */
 
@@ -102,7 +102,7 @@ typedef __uint32_t uint32_t;
 #define NEXT_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(30000) /**< Time between each call to sd_ble_gap_conn_param_update after the first call (30 seconds). */
 #define MAX_CONN_PARAMS_UPDATE_COUNT 3                       /**< Number of attempts before giving up the connection parameter negotiation. */
 
-#define NOTIFICATION_INTERVAL APP_TIMER_TICKS(200)
+#define NOTIFICATION_INTERVAL APP_TIMER_TICKS(100)
 
 #define SEC_PARAM_BOND 1                               /**< Perform bonding. */
 #define SEC_PARAM_MITM 0                               /**< Man In The Middle protection not required. */
@@ -125,6 +125,13 @@ APP_TIMER_DEF(m_notification_timer_id);
 static uint64_t m_custom_value = 0;
 
 static uint8_t dataPacket[64] = {0};
+
+static struct SupplyData_struct {
+  float commandedVoltage;
+  float commandedCurrentLimit;
+  float measuredVoltage;
+  float measuredCurrent;
+} SupplyData;
 
 static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID; /**< Handle of the current connection. */
 
@@ -246,7 +253,11 @@ static void notification_timeout_handler(void *p_context) {
   UNUSED_PARAMETER(p_context);
   ret_code_t err_code;
 
-  err_code = ble_cus_custom_value_update(&m_cus, &dataPacket);
+  SupplyData.measuredCurrent += 0.1;
+
+  memcpy(&dataPacket, &SupplyData, sizeof(SupplyData));
+
+  err_code = ble_cus_custom_value_update(&m_cus, (uint8_t *)&dataPacket);
   APP_ERROR_CHECK(err_code);
 }
 
@@ -262,14 +273,6 @@ static void timers_init(void) {
   // Create timers.
   err_code = app_timer_create(&m_notification_timer_id, APP_TIMER_MODE_REPEATED, notification_timeout_handler);
   APP_ERROR_CHECK(err_code);
-
-  /* YOUR_JOB: Create any timers to be used by the application.
-                 Below is an example of how to create a timer.
-                 For every new timer needed, increase the value of the macro APP_TIMER_MAX_TIMERS by
-                 one.
-       ret_code_t err_code;
-       err_code = app_timer_create(&m_app_timer_id, APP_TIMER_MODE_REPEATED, timer_timeout_handler);
-       APP_ERROR_CHECK(err_code); */
 }
 
 /**@brief Function for the GAP initialization.
@@ -288,10 +291,6 @@ static void gap_params_init(void) {
                                         (const uint8_t *)DEVICE_NAME,
                                         strlen(DEVICE_NAME));
   APP_ERROR_CHECK(err_code);
-
-  /* YOUR_JOB: Use an appearance value matching the application's use case.
-       err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_);
-       APP_ERROR_CHECK(err_code); */
 
   memset(&gap_conn_params, 0, sizeof(gap_conn_params));
 
@@ -777,6 +776,11 @@ static void advertising_start(bool erase_bonds) {
  */
 int main(void) {
   bool erase_bonds = false;
+
+  SupplyData.commandedVoltage = 0;
+  SupplyData.commandedCurrentLimit = 0;
+  SupplyData.measuredCurrent = 0;
+  SupplyData.measuredVoltage = 0;
   // Initialize.
   log_init();
   timers_init();
