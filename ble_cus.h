@@ -102,6 +102,6 @@ void ble_cus_on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context);
  * @return      NRF_SUCCESS on success, otherwise an error code.
  */
 
-uint32_t ble_cus_custom_value_update(ble_cus_t *p_cus, uint8_t custom_value[64]);
+uint32_t ble_cus_custom_value_update(ble_cus_t *p_cus, uint8_t *custom_value);
 
 #endif // BLE_CUS_H__

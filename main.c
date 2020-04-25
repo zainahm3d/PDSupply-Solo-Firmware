@@ -246,10 +246,7 @@ static void notification_timeout_handler(void *p_context) {
   UNUSED_PARAMETER(p_context);
   ret_code_t err_code;
 
-  // Increment the value of m_custom_value before nortifing it.
-  m_custom_value++;
-
-  err_code = ble_cus_custom_value_update(&m_cus, dataPacket);
+  err_code = ble_cus_custom_value_update(&m_cus, &dataPacket);
   APP_ERROR_CHECK(err_code);
 }
 
