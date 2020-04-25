@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "nrf_log_ctrl.h": "c",
+        "ble_cus.h": "c",
+        "nrf_ble_qwr.h": "c",
+        "boards.h": "c",
+        "nrf_sdh.h": "c"
+    }
+}

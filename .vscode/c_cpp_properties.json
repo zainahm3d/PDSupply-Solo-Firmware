@@ -1,0 +1,34 @@
+{
+    "configurations": [
+        {
+            "name": "nRF52840 DK",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/local/Cellar/arm-none-eabi-gcc/9-2019-q4-major/gcc/arm-none-eabi/",
+                "/Users/zain/Projects/NRFProjects/nRF5_SDK_16/**",
+                "/Users/zain/Projects/NRFProjects/nRF5_SDK_16/components/**"
+            ],
+            "defines": [
+                "BOARD_PCA10056",
+                "CONFIG_GPIO_AS_PINRESET",
+                "INITIALIZE_USER_SECTIONS",
+                "FLOAT_ABI_HARD",
+                "NRF52",
+                "NRF52840_XXAA",
+                "NRF_SD_BLE_API_VERSION=6",
+                "S140",
+                "SOFTDEVICE_PRESENT",
+                "SWI_DISABLE0"
+            ],
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/local/Cellar/arm-none-eabi-gcc/9-2019-q4-major/gcc/bin/arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
