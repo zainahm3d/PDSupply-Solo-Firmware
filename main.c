@@ -82,14 +82,19 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "dataPackets.h"
+#include "nrf_delay.h"
+
 typedef __uint8_t uint8_t;
 typedef __uint32_t uint32_t;
+
+struct MasterData_struct MasterData;
 
 #define DEVICE_NAME "PDSupply Solo"     /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME "Captio Labs" /**< Manufacturer. Will be passed to Device Information Service. */
 #define APP_ADV_INTERVAL 300            /**< The advertising interval (in units of 0.625 ms. This value corresponds to 187.5 ms). */
 
-#define APP_ADV_DURATION 18000  /**< The advertising duration (180 seconds) in units of 10 milliseconds. */
+#define APP_ADV_DURATION 0      //18000  /**< The advertising duration (180 seconds) in units of 10 milliseconds. */
 #define APP_BLE_OBSERVER_PRIO 3 /**< Application's BLE observer priority. You shouldn't need to modify this value. */
 #define APP_BLE_CONN_CFG_TAG 1  /**< A tag identifying the SoftDevice BLE configuration. */
 
@@ -102,7 +107,7 @@ typedef __uint32_t uint32_t;
 #define NEXT_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(30000) /**< Time between each call to sd_ble_gap_conn_param_update after the first call (30 seconds). */
 #define MAX_CONN_PARAMS_UPDATE_COUNT 3                       /**< Number of attempts before giving up the connection parameter negotiation. */
 
-#define NOTIFICATION_INTERVAL APP_TIMER_TICKS(100)
+#define NOTIFICATION_INTERVAL APP_TIMER_TICKS(50)
 
 #define SEC_PARAM_BOND 1                               /**< Perform bonding. */
 #define SEC_PARAM_MITM 0                               /**< Man In The Middle protection not required. */
@@ -125,13 +130,6 @@ APP_TIMER_DEF(m_notification_timer_id);
 static uint64_t m_custom_value = 0;
 
 static uint8_t dataPacket[64] = {0};
-
-static struct SupplyData_struct {
-  float commandedVoltage;
-  float commandedCurrentLimit;
-  float measuredVoltage;
-  float measuredCurrent;
-} SupplyData;
 
 static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID; /**< Handle of the current connection. */
 
@@ -253,12 +251,16 @@ static void notification_timeout_handler(void *p_context) {
   UNUSED_PARAMETER(p_context);
   ret_code_t err_code;
 
-  SupplyData.measuredCurrent += 0.1;
+  // For testing only!
+  SupplyData.measuredCurrent = MasterData.commandedCurrent;
+  SupplyData.measuredVoltage = MasterData.commandedVoltage;
+  SupplyData.counter++;
 
   memcpy(&dataPacket, &SupplyData, sizeof(SupplyData));
 
   err_code = ble_cus_custom_value_update(&m_cus, (uint8_t *)&dataPacket);
-  APP_ERROR_CHECK(err_code);
+
+  // APP_ERROR_CHECK(err_code);
 }
 
 /**@brief Function for the Timer initialization.
@@ -376,8 +378,9 @@ static void on_cus_evt(ble_cus_t *p_cus_service,
     break;
 
   case BLE_CUS_EVT_DISCONNECTED:
+    err_code = app_timer_stop(m_notification_timer_id);
+    APP_ERROR_CHECK(err_code);
     break;
-
   default:
     // No implementation needed.
     break;
@@ -547,6 +550,7 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
     break;
 
   case BLE_GAP_EVT_CONNECTED:
+    nrf_delay_ms(100);
     NRF_LOG_INFO("Connected.");
     err_code = bsp_indication_set(BSP_INDICATE_CONNECTED);
     APP_ERROR_CHECK(err_code);
@@ -777,10 +781,16 @@ static void advertising_start(bool erase_bonds) {
 int main(void) {
   bool erase_bonds = false;
 
-  SupplyData.commandedVoltage = 0;
-  SupplyData.commandedCurrentLimit = 0;
+  SupplyData.counter = 0;
+  SupplyData.status = PD_STATUS_OUTPUT_OFF;
   SupplyData.measuredCurrent = 0;
   SupplyData.measuredVoltage = 0;
+
+  MasterData.commandedCurrent = 0;
+  MasterData.commandedOutput = 0;
+  MasterData.commandedVoltage = 0;
+  MasterData.commandedStatus = PD_COMMAND_OUTPUT_OFF;
+
   // Initialize.
   log_init();
   timers_init();

@@ -87,6 +87,9 @@ _build/nrf52840_xxaa/ble_cus.c.o: ../../../ble_cus.c ../../../ble_cus.h \
  ../../../../../../components/softdevice/s140/headers/nrf_sd_def.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
  ../../../../../../components/boards/pca10056.h \
+ ../../../../../../integration/nrfx/legacy/nrf_drv_saadc.h \
+ ../../../../../../modules/nrfx/drivers/include/nrfx_saadc.h \
+ ../../../../../../modules/nrfx/hal/nrf_saadc.h \
  ../../../../../../components/libraries/log/nrf_log.h \
  ../../../../../../components/libraries/util/sdk_common.h \
  /usr/local/Cellar/arm-none-eabi-gcc/9-2019-q4-major/gcc/arm-none-eabi/include/string.h \
@@ -280,6 +283,12 @@ _build/nrf52840_xxaa/ble_cus.c.o: ../../../ble_cus.c ../../../ble_cus.h \
 ../../../../../../modules/nrfx/drivers/nrfx_errors.h:
 
 ../../../../../../components/boards/pca10056.h:
+
+../../../../../../integration/nrfx/legacy/nrf_drv_saadc.h:
+
+../../../../../../modules/nrfx/drivers/include/nrfx_saadc.h:
+
+../../../../../../modules/nrfx/hal/nrf_saadc.h:
 
 ../../../../../../components/libraries/log/nrf_log.h:
 

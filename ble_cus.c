@@ -1,6 +1,7 @@
 #include "ble_cus.h"
 #include "ble_srv_common.h"
 #include "boards.h"
+#include "nrf_drv_saadc.h"
 #include "nrf_gpio.h"
 #include "nrf_log.h"
 #include "sdk_common.h"
@@ -9,6 +10,7 @@
 typedef __uint8_t uint8_t;
 typedef __uint32_t uint32_t;
 
+extern struct MasterData_Struct MasterData;
 /**@brief Function for handling the Connect event.
  *
  * @param[in]   p_cus       Custom Service structure.
@@ -17,7 +19,6 @@ typedef __uint32_t uint32_t;
 static void on_connect(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
   nrf_gpio_pin_clear(LED_3);
   p_cus->conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
-
   ble_cus_evt_t evt;
 
   evt.evt_type = BLE_CUS_EVT_CONNECTED;
@@ -54,27 +55,10 @@ static void on_write(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
   if (p_evt_write->handle == p_cus->custom_value_handles.value_handle) {
     nrf_gpio_pin_toggle(LED_2);
 
-    NRF_LOG_INFO("Length: %d\n", p_evt_write->len);
-    // NRF_LOG_INFO("0x%x\n", *p_evt_write->data);
-
-    for (int i = 0; i < p_evt_write->len; i++) {
-      NRF_LOG_INFO("0x%x", p_evt_write->data[i]);
+    // 16 Byte Write
+    if (p_evt_write->len >= 16) {
+      memcpy(&MasterData, p_evt_write->data, 16);
     }
-
-    /*
-        if(*p_evt_write->data == 0x01)
-        {
-            nrf_gpio_pin_clear(20);
-        }
-        else if(*p_evt_write->data == 0x02)
-        {
-            nrf_gpio_pin_set(20);
-        }
-        else
-        {
-          //Do nothing
-        }
-        */
   }
 
   // Check if the Custom value CCCD is written to and that the value is the appropriate length, i.e 2 bytes.
