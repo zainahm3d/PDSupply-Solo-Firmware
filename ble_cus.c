@@ -1,23 +1,29 @@
 #include "ble_cus.h"
 #include "ble_srv_common.h"
 #include "boards.h"
+#include "nrf_drv_saadc.h"
 #include "nrf_gpio.h"
 #include "nrf_log.h"
 #include "sdk_common.h"
 #include <string.h>
 
+#include "PDSupply.h"
+
 typedef __uint8_t uint8_t;
 typedef __uint32_t uint32_t;
 
-/**@brief Function for handling the Connect event.
+// Original declerations in main.c
+extern struct MasterData_Struct MasterData;
+extern struct SupplyData_Struct SupplyData;
+
+/** @brief Function for handling the Connect event.
  *
  * @param[in]   p_cus       Custom Service structure.
  * @param[in]   p_ble_evt   Event received from the BLE stack.
  */
 static void on_connect(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
-  nrf_gpio_pin_clear(LED_3);
+  nrf_gpio_pin_clear(PD_BLE_CONNECTED_LED);
   p_cus->conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
-
   ble_cus_evt_t evt;
 
   evt.evt_type = BLE_CUS_EVT_CONNECTED;
@@ -25,13 +31,15 @@ static void on_connect(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
   p_cus->evt_handler(p_cus, &evt);
 }
 
-/**@brief Function for handling the Disconnect event.
+/** @brief Function for handling the Disconnect event.
  *
  * @param[in]   p_cus       Custom Service structure.
  * @param[in]   p_ble_evt   Event received from the BLE stack.
  */
 static void on_disconnect(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
-  nrf_gpio_pin_set(LED_3);
+  nrf_gpio_pin_set(PD_BLE_CONNECTED_LED);
+  nrf_gpio_pin_set(PD_BLE_ACTIVITY_LED);
+
   UNUSED_PARAMETER(p_ble_evt);
   p_cus->conn_handle = BLE_CONN_HANDLE_INVALID;
 
@@ -42,7 +50,7 @@ static void on_disconnect(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
   p_cus->evt_handler(p_cus, &evt);
 }
 
-/**@brief Function for handling the Write event.
+/** @brief Function for handling the Write event.
  *
  * @param[in]   p_cus       Custom Service structure.
  * @param[in]   p_ble_evt   Event received from the BLE stack.
@@ -52,29 +60,12 @@ static void on_write(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
 
   // Custom Value Characteristic Written to.
   if (p_evt_write->handle == p_cus->custom_value_handles.value_handle) {
-    nrf_gpio_pin_toggle(LED_2);
+    nrf_gpio_pin_toggle(PD_BLE_ACTIVITY_LED);
 
-    NRF_LOG_INFO("Length: %d\n", p_evt_write->len);
-    // NRF_LOG_INFO("0x%x\n", *p_evt_write->data);
-
-    for (int i = 0; i < p_evt_write->len; i++) {
-      NRF_LOG_INFO("0x%x", p_evt_write->data[i]);
+    // 16 Byte Write
+    if (p_evt_write->len >= 16) {
+      memcpy(&MasterData, p_evt_write->data, 16);
     }
-
-    /*
-        if(*p_evt_write->data == 0x01)
-        {
-            nrf_gpio_pin_clear(20);
-        }
-        else if(*p_evt_write->data == 0x02)
-        {
-            nrf_gpio_pin_set(20);
-        }
-        else
-        {
-          //Do nothing
-        }
-        */
   }
 
   // Check if the Custom value CCCD is written to and that the value is the appropriate length, i.e 2 bytes.
@@ -125,7 +116,7 @@ void ble_cus_on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context) {
   }
 }
 
-/**@brief Function for adding the Custom Value characteristic.
+/** @brief Function for adding the Custom Value characteristic.
  *
  * @param[in]   p_cus        Battery Service structure.
  * @param[in]   p_cus_init   Information needed to initialize the service.
@@ -223,7 +214,7 @@ uint32_t ble_cus_init(ble_cus_t *p_cus, const ble_cus_init_t *p_cus_init) {
 
 uint32_t ble_cus_custom_value_update(ble_cus_t *p_cus, uint8_t *custom_value) {
 
-  nrf_gpio_pin_toggle(LED_4);
+  nrf_gpio_pin_toggle(PD_BLE_ACTIVITY_LED);
 
   NRF_LOG_INFO("In ble_cus_custom_value_update. \r\n");
   if (p_cus == NULL) {

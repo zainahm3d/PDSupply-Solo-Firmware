@@ -15,7 +15,7 @@
             "svdFile": "nrf52840.svd",
             "device": "nRF52840_xxaa",
             "preLaunchTask": "build",
-            "runToMain": false
+            "runToMain": true
         }
     ]
 }

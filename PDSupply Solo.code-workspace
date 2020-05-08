@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"sdk_common.h": "c",
+			"nrf_drv_saadc.h": "c",
+			"sensorsim.h": "c",
+			"peer_manager.h": "c",
+			"nrf_delay.h": "c",
+			"nrf_gpio.h": "c",
+			"nrf_log.h": "c"
+		}
+	}
+}
