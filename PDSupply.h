@@ -1,5 +1,5 @@
-#ifndef DATAPACKETS_H
-#define DATAPACKETS_H
+#ifndef PDSUPPLY_H
+#define PDSUPPLY_H
 
 typedef __uint8_t uint8_t;
 typedef __uint32_t uint32_t;
@@ -34,4 +34,8 @@ struct MasterData_struct {
   float commandedCurrent;
 };
 
-#endif
+// LED GPIOs
+#define PD_BLE_CONNECTED_LED NRF_GPIO_PIN_MAP(0, 15)
+#define PD_BLE_ACTIVITY_LED NRF_GPIO_PIN_MAP(0, 14)
+
+#endif // PDSUPPLY_H

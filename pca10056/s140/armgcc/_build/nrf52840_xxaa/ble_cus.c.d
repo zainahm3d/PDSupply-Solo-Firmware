@@ -102,7 +102,8 @@ _build/nrf52840_xxaa/ble_cus.c.o: ../../../ble_cus.c ../../../ble_cus.h \
  ../../../../../../components/libraries/log/src/nrf_log_internal.h \
  ../../../../../../components/libraries/log/nrf_log_instance.h \
  ../../../../../../components/libraries/log/nrf_log_types.h \
- ../../../../../../components/libraries/log/nrf_log_types.h
+ ../../../../../../components/libraries/log/nrf_log_types.h \
+ ../../../PDSupply.h
 
 ../../../ble_cus.h:
 
@@ -315,3 +316,5 @@ _build/nrf52840_xxaa/ble_cus.c.o: ../../../ble_cus.c ../../../ble_cus.h \
 ../../../../../../components/libraries/log/nrf_log_types.h:
 
 ../../../../../../components/libraries/log/nrf_log_types.h:
+
+../../../PDSupply.h:

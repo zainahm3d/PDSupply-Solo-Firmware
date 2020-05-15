@@ -138,7 +138,7 @@ _build/nrf52840_xxaa/main.c.o: ../../../main.c \
  /usr/local/Cellar/arm-none-eabi-gcc/9-2019-q4-major/gcc/arm-none-eabi/include/machine/stdlib.h \
  ../../../../../../components/libraries/balloc/nrf_balloc.h \
  ../../../../../../components/libraries/log/nrf_log_default_backends.h \
- ../../../dataPackets.h \
+ ../../../PDSupply.h \
  ../../../../../../components/libraries/delay/nrf_delay.h
 
 /usr/local/Cellar/arm-none-eabi-gcc/9-2019-q4-major/gcc/lib/gcc/arm-none-eabi/9.2.1/include/stdbool.h:
@@ -421,6 +421,6 @@ _build/nrf52840_xxaa/main.c.o: ../../../main.c \
 
 ../../../../../../components/libraries/log/nrf_log_default_backends.h:
 
-../../../dataPackets.h:
+../../../PDSupply.h:
 
 ../../../../../../components/libraries/delay/nrf_delay.h:
