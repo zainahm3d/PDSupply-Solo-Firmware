@@ -1,3 +1,9 @@
+/**
+ * @file PDSupply.h
+ * @brief This file provides pin names, status/command structs, and status/command definitions for PDSuppy
+ * @author Zain Ahmed
+*/
+
 #ifndef PDSUPPLY_H
 #define PDSUPPLY_H
 
@@ -24,7 +30,7 @@ struct SupplyData_struct {
   uint32_t status;
   float measuredVoltage;
   float measuredCurrent;
-} SupplyData;
+};
 
 // Master to Supply, 16 BYTES
 struct MasterData_struct {

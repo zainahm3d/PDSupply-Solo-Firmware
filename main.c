@@ -37,19 +37,15 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-/** @file
+
+/**
+ * @file main.c
+ * @brief PDSupply Solo (single channel) application software.
+ * @author Zain Ahmed
  *
- * @defgroup ble_sdk_app_template_main main.c
- * @{
- * @ingroup ble_sdk_app_template
- * @brief Template project main file.
- *
- * This file contains a template for creating a new application. It has the code necessary to wakeup
- * from button, advertise, get a connection restart advertising on disconnect and if no new
- * connection created go back to system-off mode.
- * It can easily be used as a starting point for creating a new application, the comments identified
- * with 'YOUR_JOB' indicates where and how you can customize.
- */
+ * @cite https://github.com/bjornspockeli/custom_ble_service_example
+ * Thank you @bjornspockeli for providing a starting point for this peripheral software.
+*/
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -89,6 +85,7 @@ typedef __uint8_t uint8_t;
 typedef __uint32_t uint32_t;
 
 struct MasterData_struct MasterData;
+struct SupplyData_struct SupplyData;
 
 #define DEVICE_NAME "PDSupply Solo"     /** < Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME "Captio Labs" /** < Manufacturer. Will be passed to Device Information Service. */

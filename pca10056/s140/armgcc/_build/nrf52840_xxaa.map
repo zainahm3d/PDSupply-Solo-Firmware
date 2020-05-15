@@ -21359,7 +21359,7 @@ OUTPUT(_build/nrf52840_xxaa.out elf32-littlearm)
  .debug_line    0x000000000003f6d8     0x1053 _build/nrf52840_xxaa/nrf_sdh_ble.c.o
  .debug_line    0x000000000004072b      0xbad _build/nrf52840_xxaa/nrf_sdh_soc.c.o
 
-.debug_info     0x0000000000000000    0xca1b8
+.debug_info     0x0000000000000000    0xca175
  .debug_info    0x0000000000000000       0x26 _build/nrf52840_xxaa/gcc_startup_nrf52840.S.o
  .debug_info    0x0000000000000026     0x1f37 _build/nrf52840_xxaa/nrf_log_backend_serial.c.o
  .debug_info    0x0000000000001f5d     0x28d2 _build/nrf52840_xxaa/nrf_log_backend_uart.c.o
@@ -21399,30 +21399,30 @@ OUTPUT(_build/nrf52840_xxaa.out elf32-littlearm)
  .debug_info    0x0000000000045c3e     0x2375 _build/nrf52840_xxaa/bsp.c.o
  .debug_info    0x0000000000047fb3     0x5d66 _build/nrf52840_xxaa/bsp_btn_ble.c.o
  .debug_info    0x000000000004dd19     0x7c70 _build/nrf52840_xxaa/main.c.o
- .debug_info    0x0000000000055989     0x638b _build/nrf52840_xxaa/ble_cus.c.o
- .debug_info    0x000000000005bd14     0x47cd _build/nrf52840_xxaa/ble_advdata.c.o
- .debug_info    0x00000000000604e1     0x6974 _build/nrf52840_xxaa/ble_advertising.c.o
- .debug_info    0x0000000000066e55     0x584b _build/nrf52840_xxaa/ble_conn_params.c.o
- .debug_info    0x000000000006c6a0     0x6437 _build/nrf52840_xxaa/ble_conn_state.c.o
- .debug_info    0x0000000000072ad7     0x3f09 _build/nrf52840_xxaa/ble_srv_common.c.o
- .debug_info    0x00000000000769e0     0x6e60 _build/nrf52840_xxaa/gatt_cache_manager.c.o
- .debug_info    0x000000000007d840     0x545d _build/nrf52840_xxaa/gatts_cache_manager.c.o
- .debug_info    0x0000000000082c9d     0x6e97 _build/nrf52840_xxaa/id_manager.c.o
- .debug_info    0x0000000000089b34     0x56ee _build/nrf52840_xxaa/nrf_ble_gatt.c.o
- .debug_info    0x000000000008f222     0x50f5 _build/nrf52840_xxaa/nrf_ble_qwr.c.o
- .debug_info    0x0000000000094317     0x5adc _build/nrf52840_xxaa/peer_data_storage.c.o
- .debug_info    0x0000000000099df3     0x58b2 _build/nrf52840_xxaa/peer_database.c.o
- .debug_info    0x000000000009f6a5     0x4940 _build/nrf52840_xxaa/peer_id.c.o
- .debug_info    0x00000000000a3fe5     0x7429 _build/nrf52840_xxaa/peer_manager.c.o
- .debug_info    0x00000000000ab40e     0x68d7 _build/nrf52840_xxaa/peer_manager_handler.c.o
- .debug_info    0x00000000000b1ce5      0xe25 _build/nrf52840_xxaa/pm_buffer.c.o
- .debug_info    0x00000000000b2b0a     0x6ed2 _build/nrf52840_xxaa/security_dispatcher.c.o
- .debug_info    0x00000000000b99dc     0x6d70 _build/nrf52840_xxaa/security_manager.c.o
- .debug_info    0x00000000000c074c     0x26e0 _build/nrf52840_xxaa/nrf_sdh.c.o
- .debug_info    0x00000000000c2e2c     0x579a _build/nrf52840_xxaa/nrf_sdh_ble.c.o
- .debug_info    0x00000000000c85c6     0x1bf2 _build/nrf52840_xxaa/nrf_sdh_soc.c.o
+ .debug_info    0x0000000000055989     0x6348 _build/nrf52840_xxaa/ble_cus.c.o
+ .debug_info    0x000000000005bcd1     0x47cd _build/nrf52840_xxaa/ble_advdata.c.o
+ .debug_info    0x000000000006049e     0x6974 _build/nrf52840_xxaa/ble_advertising.c.o
+ .debug_info    0x0000000000066e12     0x584b _build/nrf52840_xxaa/ble_conn_params.c.o
+ .debug_info    0x000000000006c65d     0x6437 _build/nrf52840_xxaa/ble_conn_state.c.o
+ .debug_info    0x0000000000072a94     0x3f09 _build/nrf52840_xxaa/ble_srv_common.c.o
+ .debug_info    0x000000000007699d     0x6e60 _build/nrf52840_xxaa/gatt_cache_manager.c.o
+ .debug_info    0x000000000007d7fd     0x545d _build/nrf52840_xxaa/gatts_cache_manager.c.o
+ .debug_info    0x0000000000082c5a     0x6e97 _build/nrf52840_xxaa/id_manager.c.o
+ .debug_info    0x0000000000089af1     0x56ee _build/nrf52840_xxaa/nrf_ble_gatt.c.o
+ .debug_info    0x000000000008f1df     0x50f5 _build/nrf52840_xxaa/nrf_ble_qwr.c.o
+ .debug_info    0x00000000000942d4     0x5adc _build/nrf52840_xxaa/peer_data_storage.c.o
+ .debug_info    0x0000000000099db0     0x58b2 _build/nrf52840_xxaa/peer_database.c.o
+ .debug_info    0x000000000009f662     0x4940 _build/nrf52840_xxaa/peer_id.c.o
+ .debug_info    0x00000000000a3fa2     0x7429 _build/nrf52840_xxaa/peer_manager.c.o
+ .debug_info    0x00000000000ab3cb     0x68d7 _build/nrf52840_xxaa/peer_manager_handler.c.o
+ .debug_info    0x00000000000b1ca2      0xe25 _build/nrf52840_xxaa/pm_buffer.c.o
+ .debug_info    0x00000000000b2ac7     0x6ed2 _build/nrf52840_xxaa/security_dispatcher.c.o
+ .debug_info    0x00000000000b9999     0x6d70 _build/nrf52840_xxaa/security_manager.c.o
+ .debug_info    0x00000000000c0709     0x26e0 _build/nrf52840_xxaa/nrf_sdh.c.o
+ .debug_info    0x00000000000c2de9     0x579a _build/nrf52840_xxaa/nrf_sdh_ble.c.o
+ .debug_info    0x00000000000c8583     0x1bf2 _build/nrf52840_xxaa/nrf_sdh_soc.c.o
 
-.debug_abbrev   0x0000000000000000     0xd528
+.debug_abbrev   0x0000000000000000     0xd515
  .debug_abbrev  0x0000000000000000       0x14 _build/nrf52840_xxaa/gcc_startup_nrf52840.S.o
  .debug_abbrev  0x0000000000000014      0x2dc _build/nrf52840_xxaa/nrf_log_backend_serial.c.o
  .debug_abbrev  0x00000000000002f0      0x370 _build/nrf52840_xxaa/nrf_log_backend_uart.c.o
@@ -21462,28 +21462,28 @@ OUTPUT(_build/nrf52840_xxaa.out elf32-littlearm)
  .debug_abbrev  0x0000000000007536      0x3b6 _build/nrf52840_xxaa/bsp.c.o
  .debug_abbrev  0x00000000000078ec      0x340 _build/nrf52840_xxaa/bsp_btn_ble.c.o
  .debug_abbrev  0x0000000000007c2c      0x3e9 _build/nrf52840_xxaa/main.c.o
- .debug_abbrev  0x0000000000008015      0x40a _build/nrf52840_xxaa/ble_cus.c.o
- .debug_abbrev  0x000000000000841f      0x3a0 _build/nrf52840_xxaa/ble_advdata.c.o
- .debug_abbrev  0x00000000000087bf      0x426 _build/nrf52840_xxaa/ble_advertising.c.o
- .debug_abbrev  0x0000000000008be5      0x3df _build/nrf52840_xxaa/ble_conn_params.c.o
- .debug_abbrev  0x0000000000008fc4      0x436 _build/nrf52840_xxaa/ble_conn_state.c.o
- .debug_abbrev  0x00000000000093fa      0x32e _build/nrf52840_xxaa/ble_srv_common.c.o
- .debug_abbrev  0x0000000000009728      0x49e _build/nrf52840_xxaa/gatt_cache_manager.c.o
- .debug_abbrev  0x0000000000009bc6      0x3fc _build/nrf52840_xxaa/gatts_cache_manager.c.o
- .debug_abbrev  0x0000000000009fc2      0x448 _build/nrf52840_xxaa/id_manager.c.o
- .debug_abbrev  0x000000000000a40a      0x3e5 _build/nrf52840_xxaa/nrf_ble_gatt.c.o
- .debug_abbrev  0x000000000000a7ef      0x35c _build/nrf52840_xxaa/nrf_ble_qwr.c.o
- .debug_abbrev  0x000000000000ab4b      0x41c _build/nrf52840_xxaa/peer_data_storage.c.o
- .debug_abbrev  0x000000000000af67      0x478 _build/nrf52840_xxaa/peer_database.c.o
- .debug_abbrev  0x000000000000b3df      0x356 _build/nrf52840_xxaa/peer_id.c.o
- .debug_abbrev  0x000000000000b735      0x466 _build/nrf52840_xxaa/peer_manager.c.o
- .debug_abbrev  0x000000000000bb9b      0x3d5 _build/nrf52840_xxaa/peer_manager_handler.c.o
- .debug_abbrev  0x000000000000bf70      0x307 _build/nrf52840_xxaa/pm_buffer.c.o
- .debug_abbrev  0x000000000000c277      0x40a _build/nrf52840_xxaa/security_dispatcher.c.o
- .debug_abbrev  0x000000000000c681      0x41b _build/nrf52840_xxaa/security_manager.c.o
- .debug_abbrev  0x000000000000ca9c      0x407 _build/nrf52840_xxaa/nrf_sdh.c.o
- .debug_abbrev  0x000000000000cea3      0x3c1 _build/nrf52840_xxaa/nrf_sdh_ble.c.o
- .debug_abbrev  0x000000000000d264      0x2c4 _build/nrf52840_xxaa/nrf_sdh_soc.c.o
+ .debug_abbrev  0x0000000000008015      0x3f7 _build/nrf52840_xxaa/ble_cus.c.o
+ .debug_abbrev  0x000000000000840c      0x3a0 _build/nrf52840_xxaa/ble_advdata.c.o
+ .debug_abbrev  0x00000000000087ac      0x426 _build/nrf52840_xxaa/ble_advertising.c.o
+ .debug_abbrev  0x0000000000008bd2      0x3df _build/nrf52840_xxaa/ble_conn_params.c.o
+ .debug_abbrev  0x0000000000008fb1      0x436 _build/nrf52840_xxaa/ble_conn_state.c.o
+ .debug_abbrev  0x00000000000093e7      0x32e _build/nrf52840_xxaa/ble_srv_common.c.o
+ .debug_abbrev  0x0000000000009715      0x49e _build/nrf52840_xxaa/gatt_cache_manager.c.o
+ .debug_abbrev  0x0000000000009bb3      0x3fc _build/nrf52840_xxaa/gatts_cache_manager.c.o
+ .debug_abbrev  0x0000000000009faf      0x448 _build/nrf52840_xxaa/id_manager.c.o
+ .debug_abbrev  0x000000000000a3f7      0x3e5 _build/nrf52840_xxaa/nrf_ble_gatt.c.o
+ .debug_abbrev  0x000000000000a7dc      0x35c _build/nrf52840_xxaa/nrf_ble_qwr.c.o
+ .debug_abbrev  0x000000000000ab38      0x41c _build/nrf52840_xxaa/peer_data_storage.c.o
+ .debug_abbrev  0x000000000000af54      0x478 _build/nrf52840_xxaa/peer_database.c.o
+ .debug_abbrev  0x000000000000b3cc      0x356 _build/nrf52840_xxaa/peer_id.c.o
+ .debug_abbrev  0x000000000000b722      0x466 _build/nrf52840_xxaa/peer_manager.c.o
+ .debug_abbrev  0x000000000000bb88      0x3d5 _build/nrf52840_xxaa/peer_manager_handler.c.o
+ .debug_abbrev  0x000000000000bf5d      0x307 _build/nrf52840_xxaa/pm_buffer.c.o
+ .debug_abbrev  0x000000000000c264      0x40a _build/nrf52840_xxaa/security_dispatcher.c.o
+ .debug_abbrev  0x000000000000c66e      0x41b _build/nrf52840_xxaa/security_manager.c.o
+ .debug_abbrev  0x000000000000ca89      0x407 _build/nrf52840_xxaa/nrf_sdh.c.o
+ .debug_abbrev  0x000000000000ce90      0x3c1 _build/nrf52840_xxaa/nrf_sdh_ble.c.o
+ .debug_abbrev  0x000000000000d251      0x2c4 _build/nrf52840_xxaa/nrf_sdh_soc.c.o
 
 .debug_aranges  0x0000000000000000     0xa090
  .debug_aranges
@@ -21609,7 +21609,7 @@ OUTPUT(_build/nrf52840_xxaa.out elf32-littlearm)
  .debug_aranges
                 0x0000000000009ee0      0x1b0 _build/nrf52840_xxaa/nrf_sdh_soc.c.o
 
-.debug_str      0x0000000000000000    0xb68c0
+.debug_str      0x0000000000000000    0xb68d2
  .debug_str     0x0000000000000000       0xb0 _build/nrf52840_xxaa/gcc_startup_nrf52840.S.o
  .debug_str     0x00000000000000b0    0x8b866 _build/nrf52840_xxaa/nrf_log_backend_serial.c.o
                                       0x8e121 (size before relaxing)
@@ -21687,49 +21687,49 @@ OUTPUT(_build/nrf52840_xxaa.out elf32-littlearm)
                                       0x9bf4e (size before relaxing)
  .debug_str     0x00000000000acf5f     0x3d42 _build/nrf52840_xxaa/main.c.o
                                       0xa4df3 (size before relaxing)
- .debug_str     0x00000000000b0ca1      0xa6d _build/nrf52840_xxaa/ble_cus.c.o
-                                      0xa001c (size before relaxing)
- .debug_str     0x00000000000b170e      0x411 _build/nrf52840_xxaa/ble_advdata.c.o
+ .debug_str     0x00000000000b0ca1      0xa7f _build/nrf52840_xxaa/ble_cus.c.o
+                                      0x9fff4 (size before relaxing)
+ .debug_str     0x00000000000b1720      0x411 _build/nrf52840_xxaa/ble_advdata.c.o
                                       0x915a2 (size before relaxing)
- .debug_str     0x00000000000b1b1f      0x322 _build/nrf52840_xxaa/ble_advertising.c.o
+ .debug_str     0x00000000000b1b31      0x322 _build/nrf52840_xxaa/ble_advertising.c.o
                                       0x95906 (size before relaxing)
- .debug_str     0x00000000000b1e41      0x29b _build/nrf52840_xxaa/ble_conn_params.c.o
+ .debug_str     0x00000000000b1e53      0x29b _build/nrf52840_xxaa/ble_conn_params.c.o
                                       0x94171 (size before relaxing)
- .debug_str     0x00000000000b20dc      0x847 _build/nrf52840_xxaa/ble_conn_state.c.o
+ .debug_str     0x00000000000b20ee      0x847 _build/nrf52840_xxaa/ble_conn_state.c.o
                                       0x93ede (size before relaxing)
- .debug_str     0x00000000000b2923      0x2dc _build/nrf52840_xxaa/ble_srv_common.c.o
+ .debug_str     0x00000000000b2935      0x2dc _build/nrf52840_xxaa/ble_srv_common.c.o
                                       0x88963 (size before relaxing)
- .debug_str     0x00000000000b2bff      0x88b _build/nrf52840_xxaa/gatt_cache_manager.c.o
+ .debug_str     0x00000000000b2c11      0x88b _build/nrf52840_xxaa/gatt_cache_manager.c.o
                                       0x9835a (size before relaxing)
- .debug_str     0x00000000000b348a      0x32e _build/nrf52840_xxaa/gatts_cache_manager.c.o
+ .debug_str     0x00000000000b349c      0x32e _build/nrf52840_xxaa/gatts_cache_manager.c.o
                                       0x96ee9 (size before relaxing)
- .debug_str     0x00000000000b37b8      0x49a _build/nrf52840_xxaa/id_manager.c.o
+ .debug_str     0x00000000000b37ca      0x49a _build/nrf52840_xxaa/id_manager.c.o
                                       0x98001 (size before relaxing)
- .debug_str     0x00000000000b3c52      0x299 _build/nrf52840_xxaa/nrf_ble_gatt.c.o
+ .debug_str     0x00000000000b3c64      0x299 _build/nrf52840_xxaa/nrf_ble_gatt.c.o
                                       0x938b3 (size before relaxing)
- .debug_str     0x00000000000b3eeb      0x1a4 _build/nrf52840_xxaa/nrf_ble_qwr.c.o
+ .debug_str     0x00000000000b3efd      0x1a4 _build/nrf52840_xxaa/nrf_ble_qwr.c.o
                                       0x91fca (size before relaxing)
- .debug_str     0x00000000000b408f      0x49f _build/nrf52840_xxaa/peer_data_storage.c.o
+ .debug_str     0x00000000000b40a1      0x49f _build/nrf52840_xxaa/peer_data_storage.c.o
                                       0x97258 (size before relaxing)
- .debug_str     0x00000000000b452e      0x5d4 _build/nrf52840_xxaa/peer_database.c.o
+ .debug_str     0x00000000000b4540      0x5d4 _build/nrf52840_xxaa/peer_database.c.o
                                       0x9734c (size before relaxing)
- .debug_str     0x00000000000b4b02      0x105 _build/nrf52840_xxaa/peer_id.c.o
+ .debug_str     0x00000000000b4b14      0x105 _build/nrf52840_xxaa/peer_id.c.o
                                       0x9233f (size before relaxing)
- .debug_str     0x00000000000b4c07      0x73c _build/nrf52840_xxaa/peer_manager.c.o
+ .debug_str     0x00000000000b4c19      0x73c _build/nrf52840_xxaa/peer_manager.c.o
                                       0x986a4 (size before relaxing)
- .debug_str     0x00000000000b5343      0x373 _build/nrf52840_xxaa/peer_manager_handler.c.o
+ .debug_str     0x00000000000b5355      0x373 _build/nrf52840_xxaa/peer_manager_handler.c.o
                                       0x97db3 (size before relaxing)
- .debug_str     0x00000000000b56b6      0x166 _build/nrf52840_xxaa/pm_buffer.c.o
+ .debug_str     0x00000000000b56c8      0x166 _build/nrf52840_xxaa/pm_buffer.c.o
                                       0x886a9 (size before relaxing)
- .debug_str     0x00000000000b581c      0x3ae _build/nrf52840_xxaa/security_dispatcher.c.o
+ .debug_str     0x00000000000b582e      0x3ae _build/nrf52840_xxaa/security_dispatcher.c.o
                                       0x98242 (size before relaxing)
- .debug_str     0x00000000000b5bca      0x418 _build/nrf52840_xxaa/security_manager.c.o
+ .debug_str     0x00000000000b5bdc      0x418 _build/nrf52840_xxaa/security_manager.c.o
                                       0x97f79 (size before relaxing)
- .debug_str     0x00000000000b5fe2      0x3ad _build/nrf52840_xxaa/nrf_sdh.c.o
+ .debug_str     0x00000000000b5ff4      0x3ad _build/nrf52840_xxaa/nrf_sdh.c.o
                                       0x8e98f (size before relaxing)
- .debug_str     0x00000000000b638f      0x3c1 _build/nrf52840_xxaa/nrf_sdh_ble.c.o
+ .debug_str     0x00000000000b63a1      0x3c1 _build/nrf52840_xxaa/nrf_sdh_ble.c.o
                                       0x94822 (size before relaxing)
- .debug_str     0x00000000000b6750      0x170 _build/nrf52840_xxaa/nrf_sdh_soc.c.o
+ .debug_str     0x00000000000b6762      0x170 _build/nrf52840_xxaa/nrf_sdh_soc.c.o
                                       0x8d504 (size before relaxing)
 
 .debug_ranges   0x0000000000000000     0x9e80
