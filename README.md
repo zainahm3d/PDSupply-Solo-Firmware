@@ -30,7 +30,7 @@ A small, open source, USB Power Delivery enabled switching power supply. This po
         - run `brew install gcc-arm-none-eabi` and ensure that your NRF SDK is pointed to the correct binary.
     - [Useful guide](https://gist.github.com/cheburashka/c74840823cde609a5ec379c9440fc0fe) for handling all of the above (make sure to use SDK 16!)
 
-- Predefined tasks in tasks.json (use <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>p</kbd> then type "run task" or "run build task")
+- Predefined tasks in tasks.json (use <kbd>⌘</kbd><kbd>Shift</kbd><kbd>p</kbd> then type "run task" or "run build task")
     - build
         - Builds application
     - build+flash

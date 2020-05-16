@@ -1,3 +1,6 @@
 /pca10056/s140/armgcc/_build/*
-*.o
-*.o
+/.vscode/.cortex-debug.peripherals.state.json
+/.vscode/.cortex-debug.registers.state.json
+!/pca10056/s140/armgcc/_build/nrf52840_xxaa.hex
+!/pca10056/s140/armgcc/_build/nrf52840_xxaa.bin
+!/pca10056/s140/armgcc/_build/nrf52840_xxaa.out
