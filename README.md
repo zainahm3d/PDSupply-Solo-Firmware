@@ -22,13 +22,13 @@ A small, open source, USB Power Delivery enabled switching power supply. This po
 - Prerequisites/Toolchain Setup:
     - Visual Studio Code
     - Cortex Debug extension
+    - [Useful guide](https://gist.github.com/cheburashka/c74840823cde609a5ec379c9440fc0fe) for handling all of the below (make sure to use SDK 16!)
     - JLink drivers installed and added to $PATH. (test by running `jlinkexe` in terminal)
     - NRFJprog
     - Nordic SDK 16 for NRF52840
         - __IMPORTANT:__ For this project to work, you must download the SDK and place the `PDSupply_Solo_FIRMWARE` in the SDK_DIR/examples/ble_peripheral folder
     - GCC_ARM
         - run `brew install gcc-arm-none-eabi` and ensure that your NRF SDK is pointed to the correct binary.
-    - [Useful guide](https://gist.github.com/cheburashka/c74840823cde609a5ec379c9440fc0fe) for handling all of the above (make sure to use SDK 16!)
 
 - Predefined tasks in tasks.json (use <kbd>⌘</kbd><kbd>Shift</kbd><kbd>p</kbd> then type "run task" or "run build task")
     - build
