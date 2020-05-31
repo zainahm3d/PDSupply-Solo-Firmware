@@ -80,6 +80,7 @@
 
 #include "PDSupply.h"
 #include "nrf_delay.h"
+#include "nrf_drv_spi.h"
 
 typedef __uint8_t uint8_t;
 typedef __uint32_t uint32_t;
@@ -135,6 +136,16 @@ static ble_uuid_t m_adv_uuids[] = /** < Universally unique service identifiers. 
         {CUSTOM_SERVICE_UUID, BLE_UUID_TYPE_BLE}}; // originally BLE_UUID_TYPE_VENDOR_BEGIN
 
 static void advertising_start(bool erase_bonds);
+
+// SPI Setup
+#define SPI_INSTANCE 0                                               /**< SPI instance index. */
+static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE); /**< SPI instance. */
+static volatile bool spi_xfer_done;                                  /**< Flag used to indicate that SPI instance completed the transfer. */
+
+#define TEST_STRING "A"
+static uint8_t m_tx_buf[] = TEST_STRING;          /**< TX buffer. */
+static uint8_t m_rx_buf[sizeof(TEST_STRING) + 1]; /**< RX buffer. */
+static const uint8_t m_length = sizeof(m_tx_buf); /**< Transfer length. */
 
 /** @brief Callback function for asserts in the SoftDevice.
  *
@@ -243,7 +254,7 @@ static void notification_timeout_handler(void *p_context) {
   UNUSED_PARAMETER(p_context);
   ret_code_t err_code;
 
-  // For testing only!
+  /// @todo Remove this. For testing only!
   SupplyData.measuredCurrent = MasterData.commandedCurrent;
   SupplyData.measuredVoltage = MasterData.commandedVoltage;
   SupplyData.counter++;
@@ -680,8 +691,7 @@ static void buttons_leds_init(bool *p_erase_bonds) {
   *p_erase_bonds = (startup_event == BSP_EVENT_CLEAR_BONDING_DATA);
 }
 
-/** @brief Function for initializing the nrf log module.
- */
+/** @brief Function for initializing the nrf log module.*/
 static void log_init(void) {
   ret_code_t err_code = NRF_LOG_INIT(NULL);
   APP_ERROR_CHECK(err_code);
@@ -689,8 +699,7 @@ static void log_init(void) {
   NRF_LOG_DEFAULT_BACKENDS_INIT();
 }
 
-/** @brief Function for initializing power management.
- */
+/** @brief Function for initializing power management.*/
 static void power_management_init(void) {
   ret_code_t err_code;
   err_code = nrf_pwr_mgmt_init();
@@ -720,6 +729,32 @@ static void advertising_start(bool erase_bonds) {
   }
 }
 
+/**
+ * @brief SPI user event handler.
+ * @param event
+ */
+void spi_event_handler(nrf_drv_spi_evt_t const *p_event,
+                       void *p_context) {
+  // spi_xfer_done = true;
+  // NRF_LOG_INFO("Transfer completed.");
+  // if (m_rx_buf[0] != 0) {
+  //   NRF_LOG_INFO(" Received:");
+  //   NRF_LOG_HEXDUMP_INFO(m_rx_buf, strlen((const char *)m_rx_buf));
+  // }
+  APP_ERROR_CHECK(nrf_drv_spi_transfer(&spi, m_tx_buf, m_length, m_rx_buf, m_length));
+}
+
+void spi_init() {
+  nrf_drv_spi_config_t spi_config = NRF_DRV_SPI_DEFAULT_CONFIG;
+  spi_config.ss_pin = 3;
+  spi_config.miso_pin = 4;
+  spi_config.mosi_pin = 6;
+  spi_config.sck_pin = 5;
+
+  spi_config.frequency = NRF_SPI_FREQ_8M;
+  APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, spi_event_handler, NULL));
+}
+
 /** @brief Function for application main entry.
  */
 int main(void) {
@@ -736,7 +771,7 @@ int main(void) {
   MasterData.commandedStatus = PD_COMMAND_OUTPUT_OFF;
 
   // Initialize.
-  log_init();
+  // log_init(); // Conflicts with SPI pins
   timers_init();
   buttons_leds_init(&erase_bonds);
   power_management_init();
@@ -747,12 +782,15 @@ int main(void) {
   advertising_init();
   conn_params_init();
   peer_manager_init();
+  spi_init();
 
   // Start execution.
   NRF_LOG_INFO("Template example started.");
   application_timers_start();
 
   advertising_start(erase_bonds);
+
+  APP_ERROR_CHECK(nrf_drv_spi_transfer(&spi, m_tx_buf, m_length, m_rx_buf, m_length));
   // Enter main loop.
   for (;;) {
     idle_state_handle();
