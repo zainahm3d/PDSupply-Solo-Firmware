@@ -17,7 +17,7 @@ A small, open source, USB Power Delivery enabled switching power supply. This po
 - Any PD compatible power supply supporting either 9V @ 2A (or greater) or 20V @ 2A (or greater) should work.
 
 ## How to Compile/Run/Debug NRF52 Firmware (MacOS)
-- This project includes a VSCode workspace (`PDSupply Solo.code-workspace`) and build/debug/flash tasks to automate flashing the P<kbd>⌘</kbd>DSupply.
+- This project includes a VSCode workspace (`PDSupply Solo.code-workspace`) and build/debug/flash tasks to automate flashing the PDSupply.
 
 - Prerequisites/Toolchain Setup:
     - Visual Studio Code
