@@ -90,7 +90,7 @@ typedef __uint32_t uint32_t;
 struct MasterData_struct MasterData;
 struct SupplyData_struct SupplyData;
 
-/// @brief this is set to true if a transfer is SPI transfer is requested
+/// @brief this is set to true if a transfer is SPI transfer from ADC is requested
 bool transferQueued = false;
 
 #define DEVICE_NAME "PDSupply Solo"     /** < Name of device. Will be included in the advertising data. */
@@ -260,17 +260,14 @@ static void notification_timeout_handler(void *p_context) {
   UNUSED_PARAMETER(p_context);
   ret_code_t err_code;
 
-  /// @todo Remove this. For testing only!
-  SupplyData.measuredCurrent = MasterData.commandedCurrent;
-  SupplyData.measuredVoltage = MasterData.commandedVoltage;
-  SupplyData.counter++;
-
+  SupplyData.counter++;								// increment packet counter
   memcpy(&dataPacket, &SupplyData, sizeof(SupplyData));
 
   err_code = ble_cus_custom_value_update(&m_cus, (uint8_t *)&dataPacket);
   APP_ERROR_CHECK(err_code);
 
-  transferQueued = true; // Start SPI transfer to DAC or ADC
+  transferQueued = true;
+
 }
 
 /** @brief Function for the Timer initialization.
@@ -799,22 +796,13 @@ int main(void) {
 
   // Enter main loop.
   while (1) {
-    // idle_state_handle();
-
-    while (1) {
-      // TEST SPI
-      LMP_getCurrent(&spi);
-      nrf_delay_ms(10);
-      // LMP_getVoltage(&spi);
-      // nrf_delay_ms(10);
-    }
-
-    nrf_delay_ms(300);
-    SupplyData.status = PD_STATUS_OUTPUT_OVERCURRENT;
-    nrf_delay_ms(300);
-    SupplyData.status = PD_STATUS_OUTPUT_GOOD;
-    nrf_delay_ms(300);
-    SupplyData.status = PD_STATUS_OUTPUT_OFF;
+	if (transferQueued) {
+		LMP_readRegisters(&spi);                    	// pull data from SPI ADC ()
+		SupplyData.measuredVoltage = LMP_getVoltage();	// update voltage in packet
+		SupplyData.measuredCurrent = LMP_getCurrent();	// update current in packet
+		transferQueued = false;
+	}
+    idle_state_handle();
   }
 }
 
