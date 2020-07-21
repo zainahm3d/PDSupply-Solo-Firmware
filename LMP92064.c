@@ -3,12 +3,15 @@
 
 /// @warning CURRENT MUST BE READ BEFORE VOLTAGE, IN ORDER!
 
+float voltage = 0;
+float current = 0;
+
 /**
  * @brief 	query ADC over SPI to get a voltage reading in volts (blocking)
  * @param 	spiPtr: handle for an already setup SPI peripheral
  * @retval 	voltage: voltage in volts
 */
-float LMP_getVoltage(const nrf_drv_spi_t *spiPtr) {
+float LMP_getVoltageRegisters(const nrf_drv_spi_t *spiPtr) {
 	uint16_t txBuf = 0;
 	uint8_t rxBuf = 0;
 
@@ -37,7 +40,7 @@ float LMP_getVoltage(const nrf_drv_spi_t *spiPtr) {
  * @param 	spiPtr: handle for an already setup SPI peripheral
  * @retval 	currentmA: current in mA
 */
-float LMP_getCurrent(const nrf_drv_spi_t *spiPtr) {
+float LMP_getCurrentRegisters(const nrf_drv_spi_t *spiPtr) {
 	uint16_t txBuf = 0;
 	uint8_t rxBuf = 0;
 
@@ -60,3 +63,11 @@ float LMP_getCurrent(const nrf_drv_spi_t *spiPtr) {
 
 	return currentmA;
 }
+
+void LMP_readRegisters(const nrf_drv_spi_t *spiPtr) {
+	current = LMP_getCurrentRegisters(spiPtr);	// read current in mA over SPI (MUST READ BEFORE VOLTAGE!)
+	voltage = LMP_getVoltageRegisters(spiPtr);	// read voltage in volts over SPI
+}
+
+float LMP_getVoltage() {return voltage; }
+float LMP_getCurrent() {return current; }

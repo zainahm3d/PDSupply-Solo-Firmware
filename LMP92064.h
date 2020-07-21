@@ -37,7 +37,9 @@
 #define TRANSFER_OUT_SIZE   (uint8_t)2
 
 // Function Prototypes
-float LMP_getVoltage(const nrf_drv_spi_t *spi);
-float LMP_getCurrent(const nrf_drv_spi_t *spi);
+float LMP_getVoltage();
+float LMP_getCurrent();
+void LMP_readRegisters(const nrf_drv_spi_t *spiPtr);
+
 
 #endif // LMP92064_H
