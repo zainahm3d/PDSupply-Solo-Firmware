@@ -44,4 +44,13 @@ struct MasterData_struct {
 #define PD_BLE_CONNECTED_LED NRF_GPIO_PIN_MAP(0, 15)
 #define PD_BLE_ACTIVITY_LED NRF_GPIO_PIN_MAP(0, 14)
 
+// Auxillary test pin used for time measurement/etc (not exposed on PDSupply PCB)
+#define TEST_PIN NRF_GPIO_PIN_MAP(1, 0)
+
+// SPI Pins
+#define PD_MISO_PIN NRF_GPIO_PIN_MAP(0, 4)
+#define PD_MOSI_PIN NRF_GPIO_PIN_MAP(0, 6)
+#define PD_SCK_PIN NRF_GPIO_PIN_MAP(0, 5)
+#define PD_LMP92064_CS_PIN NRF_GPIO_PIN_MAP(0, 7)
+
 #endif // PDSUPPLY_H
