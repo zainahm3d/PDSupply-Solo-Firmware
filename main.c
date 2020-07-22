@@ -759,7 +759,7 @@ void spi_init() {
 /// @brief Function for application main entry.
 int main(void) {
 
-  nrf_delay_ms(3000);
+  nrf_delay_ms(500);
 
   bool erase_bonds = false;
 
@@ -778,7 +778,7 @@ int main(void) {
   // Initialize peripherals
   // log_init(); // Conflicts with SPI pins
   timers_init();
-  buttons_leds_init(&erase_bonds);
+  // buttons_leds_init(&erase_bonds);
   // power_management_init();
   ble_stack_init();
   gap_params_init();
@@ -790,6 +790,9 @@ int main(void) {
   spi_init();
 
   nrf_gpio_cfg_output(TEST_PIN); // This pin is used for external timing (dev only)
+
+  nrf_gpio_cfg_output(STUSB_RESET_PIN);
+  nrf_gpio_pin_write(STUSB_RESET_PIN, 0);
 
   // Start execution.
   NRF_LOG_INFO("PDSupply Started");

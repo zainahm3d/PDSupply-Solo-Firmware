@@ -53,4 +53,7 @@ struct MasterData_struct {
 #define PD_SCK_PIN 						NRF_GPIO_PIN_MAP(0, 5)
 #define PD_LMP92064_CS_PIN 				NRF_GPIO_PIN_MAP(0, 7)
 
+// STUSB Pins
+#define STUSB_RESET_PIN					NRF_GPIO_PIN_MAP(0, 11)
+
 #endif // PDSUPPLY_H
