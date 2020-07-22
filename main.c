@@ -750,7 +750,7 @@ void spi_init() {
   spi_config.mosi_pin = PD_MOSI_PIN;
   spi_config.sck_pin = PD_SCK_PIN;
 
-  spi_config.frequency = NRF_SPI_FREQ_1M;
+  spi_config.frequency = NRF_SPI_FREQ_8M;
   spi_config.bit_order = NRF_DRV_SPI_BIT_ORDER_MSB_FIRST;
   // APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, spi_event_handler, NULL)); // With handler
   APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, NULL, NULL)); // Blocking mode
@@ -758,6 +758,9 @@ void spi_init() {
 
 /// @brief Function for application main entry.
 int main(void) {
+
+  nrf_delay_ms(3000);
+
   bool erase_bonds = false;
 
   // Initialize PDSupply -> iOS data
@@ -802,7 +805,7 @@ int main(void) {
 		SupplyData.measuredCurrent = LMP_getCurrent();	// update current in packet
 		transferQueued = false;
 	}
-    idle_state_handle();
+    // idle_state_handle();
   }
 }
 
