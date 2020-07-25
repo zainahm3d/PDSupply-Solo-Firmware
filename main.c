@@ -78,9 +78,10 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-
 #include "PDSupply.h"
 #include "LMP92064.h"
+#include "nrf_drv_WS2812.h"
+
 #include "nrf_delay.h"
 #include "nrf_drv_spi.h"
 
@@ -265,6 +266,8 @@ static void notification_timeout_handler(void *p_context) {
 
   err_code = ble_cus_custom_value_update(&m_cus, (uint8_t *)&dataPacket);
   APP_ERROR_CHECK(err_code);
+
+  updateStatusLed(SupplyData);
 
   transferQueued = true;
 
@@ -502,14 +505,22 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
   switch (p_ble_evt->header.evt_id) {
   case BLE_GAP_EVT_DISCONNECTED:
     NRF_LOG_INFO("Disconnected.");
-    // LED indication will be changed when advertising starts.
+
+    // turn off output
+    MasterData.commandedStatus = PD_COMMAND_OUTPUT_OFF;
+    MasterData.commandedVoltage = 0;
+    nrf_drv_WS2812_set_pixel(STATUS_LED, COLOR_RED);
+    nrf_drv_WS2812_set_pixel(BLE_LED, COLOR_RED);
+    nrf_drv_WS2812_show();
     break;
 
   case BLE_GAP_EVT_CONNECTED:
     nrf_delay_ms(100);
     NRF_LOG_INFO("Connected.");
-    err_code = bsp_indication_set(BSP_INDICATE_CONNECTED);
-    APP_ERROR_CHECK(err_code);
+
+    nrf_drv_WS2812_set_pixel(BLE_LED, COLOR_GREEN);
+    nrf_drv_WS2812_show();
+
     m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
     err_code = nrf_ble_qwr_conn_handle_assign(&m_qwr, m_conn_handle);
     APP_ERROR_CHECK(err_code);
@@ -736,10 +747,6 @@ void spi_event_handler(nrf_drv_spi_evt_t const *p_event,
   spi_xfer_done = true;
   // if (m_rx_buf[0] != 0) {
   //   NRF_LOG_INFO(" Received:");
-
-  // Deassert both slave selects on completion
-  // nrf_gpio_pin_write(PD_LTC7106_CS_PIN, 1);
-  // nrf_gpio_pin_write(PD_LMP92064_CS_PIN, 1);
 }
 
 /// @brief Setup SPI pins and speed
@@ -798,17 +805,69 @@ int main(void) {
   NRF_LOG_INFO("PDSupply Started");
   application_timers_start();
 
+  nrf_drv_WS2812_init(PIXEL_PIN);
+  nrf_drv_WS2812_set_pixel(STATUS_LED, COLOR_OFF);
+  nrf_drv_WS2812_set_pixel(BLE_LED, COLOR_OFF);
+  nrf_drv_WS2812_show();
+
+  nrf_delay_ms(50);
+
+  nrf_drv_WS2812_set_pixel(STATUS_LED, COLOR_YELLOW);
+  nrf_drv_WS2812_set_pixel(BLE_LED, COLOR_RED);
+  nrf_drv_WS2812_show();
+
   advertising_start(erase_bonds);
+
+  initPD();
+
+  nrf_gpio_pin_write(BUCK_ENABLE, 0);
+  nrf_gpio_pin_write(RELAY_PIN, 0);
+
+  pwm_update_duty_cycle(100);
+  nrf_delay_ms(100);
+
 
   // Enter main loop.
   while (1) {
-	if (transferQueued) {
-		LMP_readRegisters(&spi);                    	// pull data from SPI ADC ()
-		SupplyData.measuredVoltage = LMP_getVoltage();	// update voltage in packet
-		SupplyData.measuredCurrent = LMP_getCurrent();	// update current in packet
-		transferQueued = false;
-	}
-    // idle_state_handle();
+    // if (transferQueued) {
+    //   LMP_readRegisters(&spi);                    	// pull data from SPI ADC ()
+    //   SupplyData.measuredVoltage = LMP_getVoltage();	// update voltage in packet
+    //   SupplyData.measuredCurrent = LMP_getCurrent();	// update current in packet
+    //   transferQueued = false;
+    // }
+
+    // Temporary until ADC works...
+    if (MasterData.commandedVoltage > 1)
+    {
+      nrf_gpio_pin_write(BUCK_ENABLE, 1);
+    } else {
+      nrf_gpio_pin_write(BUCK_ENABLE, 0);
+      SupplyData.status = PD_STATUS_OUTPUT_OFF;
+    }
+
+    if (MasterData.commandedStatus == PD_COMMAND_OUTPUT_ON)
+    {
+      nrf_gpio_pin_write(RELAY_PIN, 1);
+      SupplyData.status = PD_STATUS_OUTPUT_GOOD;
+    }
+    else if (MasterData.commandedStatus == PD_COMMAND_OUTPUT_OFF)
+    {
+      nrf_gpio_pin_write(RELAY_PIN, 0);
+      SupplyData.status = PD_STATUS_OUTPUT_OFF;
+    }
+
+    if (MasterData.commandedStatus == PD_COMMAND_OUTPUT_OFF)
+    {
+      SupplyData.measuredVoltage = 0;
+    }
+    else
+    {
+      SupplyData.measuredVoltage = MasterData.commandedVoltage;
+    }
+
+   setVoltage(MasterData.commandedVoltage);
+
+
   }
 }
 

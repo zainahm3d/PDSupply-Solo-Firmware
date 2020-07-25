@@ -1,11 +1,13 @@
 /**
  * @file PDSupply.h
- * @brief This file provides pin names, status/command structs, and status/command definitions for PDSuppy
+ * @brief This file provides pin names, status/command structs, and status/command definitions for PDSupply
  * @author Zain Ahmed
 */
 
 #ifndef PDSUPPLY_H
 #define PDSUPPLY_H
+
+#include <stdint.h>
 
 typedef __uint8_t uint8_t;
 typedef __uint32_t uint32_t;
@@ -55,5 +57,35 @@ struct MasterData_struct {
 
 // STUSB Pins
 #define STUSB_RESET_PIN					NRF_GPIO_PIN_MAP(0, 11)
+
+// PWM DAC Pins
+#define DACA_PIN						NRF_GPIO_PIN_MAP(0, 2)
+#define DACB_PIN						NRF_GPIO_PIN_MAP(0, 3)
+
+// Photorelay Pin
+#define RELAY_PIN						NRF_GPIO_PIN_MAP(0, 14)
+
+// Main buck enable
+#define BUCK_ENABLE						NRF_GPIO_PIN_MAP(0, 8)
+
+// Main buck voltage calc equations
+#define PD_R1_VAL						(uint32_t)249000
+#define PD_R2_VAL						(uint32_t)10000
+#define PD_BUCK_FB_MAX_V				(float)0.7
+
+// RGB LEDs
+#define PIXEL_PIN 						21
+#define BLE_LED							1
+#define STATUS_LED						0
+#define COLOR_GREEN						0, 50, 0
+#define COLOR_RED						50, 0, 0
+#define COLOR_YELLOW					50, 50, 0
+#define COLOR_OFF						0, 0, 0
+
+// Function prototypes
+void updateStatusLed(struct SupplyData_struct s);
+void setVoltage(float voltage);
+void pwm_update_duty_cycle(float duty_cycle);
+void initPD();
 
 #endif // PDSUPPLY_H

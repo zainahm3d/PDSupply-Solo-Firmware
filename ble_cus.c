@@ -2,7 +2,6 @@
 #include "ble_srv_common.h"
 #include "boards.h"
 #include "nrf_drv_saadc.h"
-#include "nrf_gpio.h"
 #include "nrf_log.h"
 #include "sdk_common.h"
 #include <string.h>
@@ -22,7 +21,6 @@ extern struct SupplyData_Struct SupplyData;
  * @param[in]   p_ble_evt   Event received from the BLE stack.
  */
 static void on_connect(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
-  nrf_gpio_pin_clear(PD_BLE_CONNECTED_LED);
   p_cus->conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
   ble_cus_evt_t evt;
 
@@ -37,9 +35,6 @@ static void on_connect(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
  * @param[in]   p_ble_evt   Event received from the BLE stack.
  */
 static void on_disconnect(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
-  nrf_gpio_pin_set(PD_BLE_CONNECTED_LED);
-  nrf_gpio_pin_set(PD_BLE_ACTIVITY_LED);
-
   UNUSED_PARAMETER(p_ble_evt);
   p_cus->conn_handle = BLE_CONN_HANDLE_INVALID;
 
@@ -60,8 +55,6 @@ static void on_write(ble_cus_t *p_cus, ble_evt_t const *p_ble_evt) {
 
   // Custom Value Characteristic Written to.
   if (p_evt_write->handle == p_cus->custom_value_handles.value_handle) {
-    nrf_gpio_pin_toggle(PD_BLE_ACTIVITY_LED);
-
     // 16 Byte Write
     if (p_evt_write->len >= 16) {
       memcpy(&MasterData, p_evt_write->data, 16);
@@ -213,8 +206,6 @@ uint32_t ble_cus_init(ble_cus_t *p_cus, const ble_cus_init_t *p_cus_init) {
 }
 
 uint32_t ble_cus_custom_value_update(ble_cus_t *p_cus, uint8_t *custom_value) {
-
-  nrf_gpio_pin_toggle(PD_BLE_ACTIVITY_LED);
 
   NRF_LOG_INFO("In ble_cus_custom_value_update. \r\n");
   if (p_cus == NULL) {
