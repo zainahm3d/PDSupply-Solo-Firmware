@@ -85,8 +85,8 @@
 #include "nrf_delay.h"
 #include "nrf_drv_spi.h"
 
-typedef __uint8_t uint8_t;
-typedef __uint32_t uint32_t;
+// typedef __uint8_t uint8_t;
+// typedef __uint32_t uint32_t;
 
 struct MasterData_struct MasterData;
 struct SupplyData_struct SupplyData;
@@ -507,10 +507,10 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
     NRF_LOG_INFO("Disconnected.");
 
     // turn off output
-    MasterData.commandedStatus = PD_COMMAND_OUTPUT_OFF;
-    MasterData.commandedVoltage = 0;
-    nrf_drv_WS2812_set_pixel(STATUS_LED, COLOR_RED);
-    nrf_drv_WS2812_set_pixel(BLE_LED, COLOR_RED);
+    // MasterData.commandedStatus = PD_COMMAND_OUTPUT_OFF;
+    // MasterData.commandedVoltage = 0;
+    // nrf_drv_WS2812_set_pixel(STATUS_LED, COLOR_RED);
+    nrf_drv_WS2812_set_pixel(BLE_LED, COLOR_YELLOW);
     nrf_drv_WS2812_show();
     break;
 
@@ -813,7 +813,7 @@ int main(void) {
   nrf_delay_ms(50);
 
   nrf_drv_WS2812_set_pixel(STATUS_LED, COLOR_YELLOW);
-  nrf_drv_WS2812_set_pixel(BLE_LED, COLOR_RED);
+  nrf_drv_WS2812_set_pixel(BLE_LED, COLOR_YELLOW);
   nrf_drv_WS2812_show();
 
   advertising_start(erase_bonds);

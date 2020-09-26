@@ -6,8 +6,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef __uint8_t uint8_t;
-typedef __uint32_t uint32_t;
+// typedef __uint8_t uint8_t;
+// typedef __uint32_t uint32_t;
 
 /** @brief   Macro for defining a ble_hrs instance.
  *

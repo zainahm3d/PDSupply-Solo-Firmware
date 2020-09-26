@@ -8,8 +8,9 @@
 
 #include "PDSupply.h"
 
-typedef __uint8_t uint8_t;
-typedef __uint32_t uint32_t;
+
+// typedef __uint8_t uint8_t;
+// typedef __uint32_t uint32_t;
 
 // Original declerations in main.c
 extern struct MasterData_Struct MasterData;
