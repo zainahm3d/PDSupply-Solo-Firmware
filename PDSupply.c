@@ -85,7 +85,7 @@ void updateStatusLed(struct SupplyData_struct s)
 
 void setVoltage(float voltage)
 {
-    voltage += 0.5; // this line is garbage. TESTING ONLY
+    voltage -= 0.18; // this line is garbage for use only until a proper calibration technique is employed. TESTING ONLYp
 
     // Calculate feedback voltage using voltage divider equation
     // (Vs * R2) / (R1 + R2)

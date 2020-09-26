@@ -9,8 +9,8 @@
 
 #include <stdint.h>
 
-typedef __uint8_t uint8_t;
-typedef __uint32_t uint32_t;
+// typedef __uint8_t uint8_t;
+// typedef __uint32_t uint32_t;
 
 // Possible values for SupplyData_struct.status
 #define PD_STATUS_OUTPUT_GOOD			0x0A
@@ -70,7 +70,7 @@ struct MasterData_struct {
 
 // Main buck voltage calc equations
 #define PD_R1_VAL						(uint32_t)249000
-#define PD_R2_VAL						(uint32_t)10000
+#define PD_R2_VAL						(uint32_t)15000
 #define PD_BUCK_FB_MAX_V				(float)0.7
 
 // RGB LEDs
