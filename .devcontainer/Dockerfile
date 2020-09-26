@@ -17,15 +17,15 @@ RUN apt-get install -y zip unzip
 
 # Download and unzip the SDK
 RUN wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/SDKs/nRF5/Binaries/nRF5SDK160098a08e2.zip
-RUN unzip nRF5SDK160098a08e2.zip -d nRF5SDK16
+RUN unzip nRF5SDK160098a08e2.zip -p -d nRF5SDK16
 
 # Download and unzip S140 softDevice
 RUN wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/SoftDevices/S140/s140nrf52701.zip
-RUN unzip s140nrf52701.zip -d s140
+RUN unzip s140nrf52701.zip -p -d s140
 
 # Download and unzip S113 softDevice
 RUN wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/SoftDevices/S113/s113nrf52701.zip
-RUN unzip s113nrf52701.zip -d s113
+RUN unzip s113nrf52701.zip -p -d s113
 
 # Set GCC ARM cross compiler path for the NRF5 SDK
 ENV GNU_INSTALL_ROOT /usr/bin/
